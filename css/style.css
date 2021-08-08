@@ -29,6 +29,7 @@ html, body{
   /* background: yellow; */
   padding: 15px 0;
   border-bottom: 1px solid #C9F6B1;
+  width: calc(100% - 10px);
 }
 
 .add-item{
@@ -64,7 +65,7 @@ html, body{
 }
 
 .tarefas::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 10px;               /* width of the entire scrollbar */
 }
 
 .tarefas::-webkit-scrollbar-track {
@@ -77,11 +78,38 @@ html, body{
   border: 3px solid #6A9E79;  /* creates padding around scroll thumb */
 }
 
+.task{
+  background: #2F5238;
+  padding: 15px 15px;
+  border-radius: 3px;
+  width: 91%;
+  position: relative;
+}
+
+.content{
+  display: inline-block;
+  /* background: cyan; */
+  width: 85%;
+  color: #C9F6B1;
+}
+
+.acoes-tarefa{
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 1%;
+  transform: translateY(-50%);
+}
+
+.fas{
+  margin: 0 5px;
+  color: #C9F6B1;
+}
+
 footer{
   position: absolute;
   bottom: 1%;
   left: 50%;
   transform: translate(-50%);
   font-size: 13px;
-  
 }
