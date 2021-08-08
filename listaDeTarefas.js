@@ -15,7 +15,7 @@ function criarTarefa(textBox) {
                       ${texto}
                     </p>
                     <div class="acoes-tarefa">
-                      <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}')" class="fas fa-check" data-concluido = 0></i>
+                      <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}')" class="fas fa-check" data-concluido = 0></i>
                       <i onclick="excluirTarefa('li_${cont}')" class="fas fa-trash"></i>
                     </div>
                   </li>` // estudar template string
@@ -31,29 +31,30 @@ function getTextoTarefa(textBox){
   return texto;
 }
 
-function concluirTarefa(p_id, i_conc_id){
+function concluirTarefa(p_id, i_conc_id, li_id){
   // console.log(id);
   var paragrafo = document.getElementById(p_id);
   var icone = document.getElementById(i_conc_id);
+  var li_tarefa = document.getElementById(li_id);
+
   var icone_data = icone.dataset.concluido;
-  console.log(icone_data);
 
   if (icone_data == 0) {
     console.log("nao concluido");
     paragrafo.style.textDecoration = 'line-through';
+    li_tarefa.style.opacity = '0.5';
     icone.dataset.concluido = 1;
   }
   else {
     console.log("concluido");
     paragrafo.style.textDecoration = 'none';
+    li_tarefa.style.opacity = '1';
     icone.dataset.concluido = 0;
   }
-
-
 }
 
 function excluirTarefa(li_id){
-  console.log(id);
+  console.log(li_id);
   var elemento = document.getElementById(li_id);
   elemento.remove();
 }
