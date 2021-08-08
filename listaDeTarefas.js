@@ -34,9 +34,11 @@ function concluirTarefa(id){
   console.log(id);
   var elemento = document.getElementById(id);
   var textoP = elemento.innerHTML;
-  elemento.innerHTML = textoP.strike();
+  elemento.innerHTML = textoP.strike(); //String.prototype.strike()
 }
 
 function excluirTarefa(id){
   console.log(id);
+  var elemento = document.getElementById(id);
+  elemento.remove();
 }
