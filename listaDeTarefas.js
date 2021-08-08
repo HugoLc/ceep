@@ -7,7 +7,7 @@ var cont = 0;
 // novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
 tbTarefa.addEventListener('keyup', (event) => {
     event.preventDefault();
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13) { // 13 é o codigo do enter
         novaTarefa.click();
     }
   });
