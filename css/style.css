@@ -21,4 +21,16 @@ html, body{
   box-shadow: 0 10px 20px rgba(20,20,20,0.4);
 }
 
-.
+.titulo{
+  font-family: 'Style Script', cursive;
+  font-weight: bold;
+  font-size: 2.5em;
+  /* background: yellow; */
+  padding: 15px 0;
+  border-bottom: 1px solid #C9F6B1;
+}
+
+.add-item{
+  margin: 15px 0;
+  text-align: center;
+}
