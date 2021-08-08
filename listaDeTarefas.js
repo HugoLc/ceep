@@ -1,7 +1,8 @@
 const novaTarefa = document.querySelector('[data-form-bt]');
 const tbTarefa = document.querySelector('[data-form-tb]');
-var cont = 0;
 
+
+var cont = contRandom(0, 1000);
 
  // metodo listener para o evento click chamado uma função anonima que executa um console.log
 // novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
@@ -25,7 +26,7 @@ function criarTarefa(textBox, estado) {
                         ${texto}
                       </p>
                       <div class="acoes-tarefa">
-                        <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}')" class="fas fa-check" data-concluido = ${estado}></i>
+                        <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}', ${cont})" class="fas fa-check" data-concluido = ${estado}></i>
                         <i onclick="excluirTarefa(${cont})" class="fas fa-trash" ></i>
                       </div>
                     </li>` // estudar template string
@@ -47,7 +48,7 @@ function criarTarefa(textBox, estado) {
 
 
     salvarStorage(cont, estado, texto);
-    cont++;
+    cont = contRandom(0, 100);
 
   }
 }
@@ -58,7 +59,7 @@ function getTextoTarefa(textBox){
   return texto;
 }
 
-function concluirTarefa(p_id, i_conc_id, li_id){
+function concluirTarefa(p_id, i_conc_id, li_id, cont_id){
   // console.log(id);
   var paragrafo = document.getElementById(p_id);
   var icone = document.getElementById(i_conc_id);
@@ -71,6 +72,9 @@ function concluirTarefa(p_id, i_conc_id, li_id){
     paragrafo.style.textDecoration = 'line-through';
     li_tarefa.style.opacity = '0.5';
     icone.dataset.concluido = 1;
+
+    //alterar valor do localstorage
+    alterarStorage(cont_id, 1);
   }
   //se o estado atual for concluido
   else {
@@ -78,6 +82,9 @@ function concluirTarefa(p_id, i_conc_id, li_id){
     paragrafo.style.textDecoration = 'none';
     li_tarefa.style.opacity = '1';
     icone.dataset.concluido = 0;
+
+    //alterar valor do localstorage
+    alterarStorage(cont_id, 0);
   }
 }
 
@@ -92,4 +99,27 @@ function salvarStorage(id, estado, texto){
   var lista = [texto, estado];
   localStorage.setItem(id, JSON.stringify(lista));
 
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function contRandom(min, max){
+  var n_random = getRandomInt(min, max);
+  console.log(n_random);
+  console.log(localStorage.key(n_random))
+  while (localStorage.key(n_random) != null) {
+    n_random = Math.random();
+  }
+  return n_random;
+}
+
+function alterarStorage(id, estado){
+  var valor = JSON.parse(localStorage.getItem(id));
+  valor[1] = estado;
+  localStorage.setItem(id, JSON.stringify(valor));
+  console.log(valor);
 }
