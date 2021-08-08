@@ -76,3 +76,12 @@ html, body{
   border-radius: 20px;       /* roundness of the scroll thumb */
   border: 3px solid #6A9E79;  /* creates padding around scroll thumb */
 }
+
+footer{
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 13px;
+  
+}
