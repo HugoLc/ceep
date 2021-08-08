@@ -54,3 +54,25 @@ html, body{
   background: #2F5238;
   color: #C9F6B1;
 }
+
+.tarefas{
+  /* background: pink; */
+  width: 100%;
+  height: 65%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.tarefas::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+.tarefas::-webkit-scrollbar-track {
+  background: none;        /* color of the tracking area */
+}
+
+.tarefas::-webkit-scrollbar-thumb {
+  background-color: #2F5238;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid #6A9E79;  /* creates padding around scroll thumb */
+}
