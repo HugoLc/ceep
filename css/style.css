@@ -5,6 +5,7 @@ html, body{
   width: 100%;
   height: 100vh;
   background: #C9F6B1;
+  font-family: 'Nunito', sans-serif;
 }
 
 .card{
@@ -33,4 +34,23 @@ html, body{
 .add-item{
   margin: 15px 0;
   text-align: center;
+
+}
+
+.tb-novo-item, .bt-novo-item{
+  background: #C9F6B1;
+  border: none;
+  padding: 5px 7px;
+  border-radius: 2px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.bt-novo-item{
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.bt-novo-item:hover{
+  background: #2F5238;
+  color: #C9F6B1;
 }
