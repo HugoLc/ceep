@@ -17,20 +17,22 @@ novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa, 0)});
 function criarTarefa(textBox, estado) {
   console.log("ME CONTRATE hugolindoso.c@gmail.com / https://github.com/HugoLc/");
   var texto = getTextoTarefa(textBox);
+  var estado;
+
   if (texto != '') {
-    var conteudo = `<li id="li_${cont}" class="task">
+    var conteudo = `<li id="li_${cont}" class="task" data-id = ${cont}>
                       <p id="p_${cont}" class="content">
                         ${texto}
                       </p>
                       <div class="acoes-tarefa">
                         <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}')" class="fas fa-check" data-concluido = ${estado}></i>
-                        <i onclick="excluirTarefa('li_${cont}')" class="fas fa-trash"></i>
+                        <i onclick="excluirTarefa(${cont})" class="fas fa-trash" ></i>
                       </div>
                     </li>` // estudar template string
     var lista = document.querySelector('[data-lista]');
     lista.innerHTML += conteudo;
 
-    //se o estado for como concluído
+    //se o estado vier como concluído
     if (estado == 1) {
       //marcar li como concluido
       var paragrafo = document.getElementById('p_'+cont);
@@ -40,8 +42,13 @@ function criarTarefa(textBox, estado) {
       paragrafo.style.textDecoration = 'line-through';
       li_tarefa.style.opacity = '0.5';
       icone.dataset.concluido = 1;
+      estado = icone.dataset.concluido;
     }
+
+
+    salvarStorage(cont, estado, texto);
     cont++;
+
   }
 }
 
@@ -74,8 +81,15 @@ function concluirTarefa(p_id, i_conc_id, li_id){
   }
 }
 
-function excluirTarefa(li_id){
-  console.log(li_id);
-  var elemento = document.getElementById(li_id);
+function excluirTarefa(id){
+  var elemento = document.querySelector('#li_'+id);
+  console.log(elemento);
+  localStorage.removeItem(elemento.dataset.id);
   elemento.remove();
+}
+
+function salvarStorage(id, estado, texto){
+  var lista = [texto, estado];
+  localStorage.setItem(id, JSON.stringify(lista));
+
 }
