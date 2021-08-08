@@ -5,6 +5,12 @@ var cont = 0;
 
  // metodo listener para o evento click chamado uma função anonima que executa um console.log
 // novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
+tbTarefa.addEventListener('keyup', (event) => {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        novaTarefa.click();
+    }
+  });
 novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa)});
 
 function criarTarefa(textBox) {
