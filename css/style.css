@@ -109,6 +109,10 @@ html, body{
   color: #C9F6B1;
 }
 
+.fas:hover{
+  cursor: pointer;
+}
+
 .fa-trash, .fa-check{
   margin-right:12px;
 }
