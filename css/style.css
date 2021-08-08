@@ -30,6 +30,7 @@ html, body{
   padding: 15px 0;
   border-bottom: 1px solid #C9F6B1;
   width: calc(100% - 10px);
+  color: #2F5238;
 }
 
 .add-item{
@@ -84,6 +85,7 @@ html, body{
   border-radius: 3px;
   width: 91%;
   position: relative;
+  margin-bottom: 1%;
 }
 
 .content{
@@ -91,6 +93,8 @@ html, body{
   /* background: cyan; */
   width: 85%;
   color: #C9F6B1;
+  font-size: 1.1em;
+  line-height: 1.2em;
 }
 
 .acoes-tarefa{
@@ -102,9 +106,16 @@ html, body{
 }
 
 .fas{
-  margin: 0 5px;
   color: #C9F6B1;
 }
+
+.fa-trash, .fa-check{
+  margin-right:12px;
+}
+
+/* .fas-trash, .fas-check::first-child{
+  margin: 0 7px;
+} */
 
 footer{
   position: absolute;
