@@ -12,9 +12,9 @@ tbTarefa.addEventListener('keyup', (event) => {
         novaTarefa.click();
     }
   });
-novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa)});
+novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa, 0)});
 
-function criarTarefa(textBox) {
+function criarTarefa(textBox, estado) {
   console.log("ME CONTRATE hugolindoso.c@gmail.com / https://github.com/HugoLc/");
   var texto = getTextoTarefa(textBox);
   if (texto != '') {
@@ -23,12 +23,24 @@ function criarTarefa(textBox) {
                         ${texto}
                       </p>
                       <div class="acoes-tarefa">
-                        <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}')" class="fas fa-check" data-concluido = 0></i>
+                        <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}')" class="fas fa-check" data-concluido = ${estado}></i>
                         <i onclick="excluirTarefa('li_${cont}')" class="fas fa-trash"></i>
                       </div>
                     </li>` // estudar template string
     var lista = document.querySelector('[data-lista]');
     lista.innerHTML += conteudo;
+
+    //se o estado for como concluído
+    if (estado == 1) {
+      //marcar li como concluido
+      var paragrafo = document.getElementById('p_'+cont);
+      var icone = document.getElementById('i_conc_'+cont);
+      var li_tarefa = document.getElementById('li_'+cont);
+
+      paragrafo.style.textDecoration = 'line-through';
+      li_tarefa.style.opacity = '0.5';
+      icone.dataset.concluido = 1;
+    }
     cont++;
   }
 }
@@ -46,13 +58,16 @@ function concluirTarefa(p_id, i_conc_id, li_id){
   var li_tarefa = document.getElementById(li_id);
 
   var icone_data = icone.dataset.concluido;
-
+  //se o estado atual for não concluido(0)
   if (icone_data == 0) {
+    //marca como concluido
     paragrafo.style.textDecoration = 'line-through';
     li_tarefa.style.opacity = '0.5';
     icone.dataset.concluido = 1;
   }
+  //se o estado atual for concluido
   else {
+    //desmarca conclusão
     paragrafo.style.textDecoration = 'none';
     li_tarefa.style.opacity = '1';
     icone.dataset.concluido = 0;
