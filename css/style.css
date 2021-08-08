@@ -20,6 +20,7 @@ html, body{
   padding: 20px 30px;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(20,20,20,0.4);
+  word-break: break-all;
 }
 
 .titulo{
@@ -91,7 +92,7 @@ html, body{
 .content{
   display: inline-block;
   /* background: cyan; */
-  width: 85%;
+  width: 80%;
   color: #C9F6B1;
   font-size: 1.1em;
   line-height: 1.2em;
@@ -127,4 +128,26 @@ footer{
   left: 50%;
   transform: translate(-50%);
   font-size: 13px;
+}
+
+@media screen and (max-width: 500px){
+  .card{
+    height: 80%;
+    padding: 3% 3%;
+    /* max-height: 80%; */
+    width: 85%;
+  }
+
+  .task{
+    width: 89%;
+  }
+
+  .content{
+    width: 80%;
+  }
+
+  .bt-novo-item{
+    margin-top: 1.5%;
+  }
+
 }
