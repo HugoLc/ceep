@@ -8,8 +8,8 @@ var cont = 0;
 novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa)});
 
 function criarTarefa(textBox) {
+  console.log("ME CONTRATE hugolindoso.c@gmail.com / https://github.com/HugoLc/");
   var texto = getTextoTarefa(textBox);
-  console.log(texto);
   var conteudo = `<li id="li_${cont}" class="task">
                     <p id="p_${cont}" class="content">
                       ${texto}
@@ -26,7 +26,6 @@ function criarTarefa(textBox) {
 
 function getTextoTarefa(textBox){
   var texto = textBox.value;
-  console.log(texto);
   textBox.value = ''; // limpar campo
   return texto;
 }
@@ -40,13 +39,11 @@ function concluirTarefa(p_id, i_conc_id, li_id){
   var icone_data = icone.dataset.concluido;
 
   if (icone_data == 0) {
-    console.log("nao concluido");
     paragrafo.style.textDecoration = 'line-through';
     li_tarefa.style.opacity = '0.5';
     icone.dataset.concluido = 1;
   }
   else {
-    console.log("concluido");
     paragrafo.style.textDecoration = 'none';
     li_tarefa.style.opacity = '1';
     icone.dataset.concluido = 0;
