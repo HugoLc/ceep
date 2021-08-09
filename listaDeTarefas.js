@@ -1,8 +1,15 @@
 const novaTarefa = document.querySelector('[data-form-bt]');
 const tbTarefa = document.querySelector('[data-form-tb]');
 
-
+// var texto = ;
 var cont = contRandom(0, 1000);
+
+
+for (var i = 0; i < localStorage.length; i++) {
+  var chave = localStorage.key(i);
+  var valor = JSON.parse(localStorage.getItem(chave));
+  criarTarefa(chave, valor[0], valor[1], false);
+}
 
  // metodo listener para o evento click chamado uma função anonima que executa um console.log
 // novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
@@ -13,32 +20,34 @@ tbTarefa.addEventListener('keyup', (event) => {
         novaTarefa.click();
     }
   });
-novaTarefa.addEventListener('click', ()=>{criarTarefa(tbTarefa, 0)});
+novaTarefa.addEventListener('click', ()=>{criarTarefa(cont,getTextoTarefa(tbTarefa), 0, true)});
 
-function criarTarefa(textBox, estado) {
+function criarTarefa(id, texto, estado, tarefa_nova) {
+
   console.log("ME CONTRATE hugolindoso.c@gmail.com / https://github.com/HugoLc/");
-  var texto = getTextoTarefa(textBox);
-  var estado;
 
   if (texto != '') {
-    var conteudo = `<li id="li_${cont}" class="task" data-id = ${cont}>
-                      <p id="p_${cont}" class="content">
+    console.log("entrei")
+    var conteudo = `<li id="li_${id}" class="task" data-id = ${id}>
+                      <p id="p_${id}" class="content">
                         ${texto}
                       </p>
                       <div class="acoes-tarefa">
-                        <i id="i_conc_${cont}" onclick="concluirTarefa('p_${cont}', 'i_conc_${cont}', 'li_${cont}', ${cont})" class="fas fa-check" data-concluido = ${estado}></i>
-                        <i onclick="excluirTarefa(${cont})" class="fas fa-trash" ></i>
+                        <i id="i_conc_${id}" onclick="concluirTarefa('p_${id}', 'i_conc_${id}', 'li_${id}', ${id})" class="fas fa-check" data-concluido = ${estado}></i>
+                        <i onclick="excluirTarefa(${id})" class="fas fa-trash" ></i>
                       </div>
                     </li>` // estudar template string
     var lista = document.querySelector('[data-lista]');
     lista.innerHTML += conteudo;
+    var conteudo = lista.innerHTML;
+    console.log(conteudo);
 
     //se o estado vier como concluído
     if (estado == 1) {
       //marcar li como concluido
-      var paragrafo = document.getElementById('p_'+cont);
-      var icone = document.getElementById('i_conc_'+cont);
-      var li_tarefa = document.getElementById('li_'+cont);
+      var paragrafo = document.getElementById('p_'+id);
+      var icone = document.getElementById('i_conc_'+id);
+      var li_tarefa = document.getElementById('li_'+id);
 
       paragrafo.style.textDecoration = 'line-through';
       li_tarefa.style.opacity = '0.5';
@@ -46,8 +55,9 @@ function criarTarefa(textBox, estado) {
       estado = icone.dataset.concluido;
     }
 
-
-    salvarStorage(cont, estado, texto);
+    if (tarefa_nova) {
+      salvarStorage(cont, estado, texto);
+    }
     cont = contRandom(0, 100);
 
   }
