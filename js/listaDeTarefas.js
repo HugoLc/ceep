@@ -1,12 +1,14 @@
 import InfoCard from '../js/info-card.js'
 
 const infoCardParagrafo = `
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Nullam vehicula ultricies convallis. Orci varius natoque 
-    penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-    Quisque viverra dictum vestibulum. Fusce vitae erat ut metus 
-    mollis luctus id eget ante. Class aptent taciti sociosqu ad litora 
-    torquent per conubia nostra, per inceptos himenaeos.
+    Projeto criado para praticar Javascript. Revisados conceitos de
+    de manipulação do DOM, organização do código através de funções,
+    armazenamento de informações no navegador utilizando a API Web Storage.
+    <br><br>
+    O objetivo do projeto foi implementar uma lista de tarefas com as funções
+    de adicionar, remover e marcar como concluídas as tarefas adicionadas. As 
+    tarefas são armazenadas e recuperadas pelo navegador com a utilização do 
+    local storage.
 `
 var infoCard = new InfoCard(infoCardParagrafo);
 
@@ -29,40 +31,6 @@ for (var i = 0; i < localStorage.length; i++) {
   criarTarefa(chave, valor[0], valor[1], false);
 }
 
-/////////////////////////////////////////////////////isolar em função para chamar toda vez que é criada a task
-const listaBotoesConcluir = document.getElementsByClassName('concluir');
-const listaBotoesExcluir = document.getElementsByClassName('excluir');
-
-console.log(listaBotoesConcluir);
-console.log(listaBotoesExcluir);
-
-for (const botao of listaBotoesConcluir) {
-  let paiDiv = botao.parentElement;
-  let avoLi = paiDiv.parentElement;
-  let idTarefa = avoLi.dataset.id;
-
-  console.log(idTarefa);
-
-  botao.addEventListener('click', () => {
-    concluirTarefa(`p_${idTarefa}`, `i_conc_${idTarefa}`, `li_${idTarefa}`, idTarefa);
-  });
-}
-
-for (const botao of listaBotoesExcluir) {
-  let paiDiv = botao.parentElement;
-  let avoLi = paiDiv.parentElement;
-  let idTarefa = avoLi.dataset.id;
-
-  botao.addEventListener('click', () => {
-    excluirTarefa(idTarefa);
-  });
-}
-
-//////////////////////////////////////////////////////////////////////////
-
- // metodo listener para o evento click chamado uma função anonima que executa um console.log
-// novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
-
 tbTarefa.addEventListener('keyup', (event) => {
     event.preventDefault();
     if (event.keyCode === 13) { // 13 é o codigo do enter
@@ -70,6 +38,36 @@ tbTarefa.addEventListener('keyup', (event) => {
     }
   });
 novaTarefa.addEventListener('click', ()=>{criarTarefa(cont,getTextoTarefa(tbTarefa), 0, true)});
+
+function adicionarEvListenersNosBotoes(){
+  const listaBotoesConcluir = document.getElementsByClassName('concluir');
+  const listaBotoesExcluir = document.getElementsByClassName('excluir');
+
+  console.log(listaBotoesConcluir);
+  console.log(listaBotoesExcluir);
+
+  for (const botao of listaBotoesConcluir) {
+    let paiDiv = botao.parentElement;
+    let avoLi = paiDiv.parentElement;
+    let idTarefa = avoLi.dataset.id;
+
+    console.log(idTarefa);
+
+    botao.addEventListener('click', () => {
+      concluirTarefa(`p_${idTarefa}`, `i_conc_${idTarefa}`, `li_${idTarefa}`, idTarefa);
+    });
+  }
+
+  for (const botao of listaBotoesExcluir) {
+    let paiDiv = botao.parentElement;
+    let avoLi = paiDiv.parentElement;
+    let idTarefa = avoLi.dataset.id;
+
+    botao.addEventListener('click', () => {
+      excluirTarefa(idTarefa);
+    });
+  }
+}
 
 function criarTarefa(id, texto, estado, tarefa_nova) {
 
@@ -110,6 +108,8 @@ function criarTarefa(id, texto, estado, tarefa_nova) {
     cont = contRandom(0, 100);
 
   }
+
+  adicionarEvListenersNosBotoes();
 }
 
 function getTextoTarefa(textBox){
@@ -150,6 +150,7 @@ function concluirTarefa(p_id, i_conc_id, li_id, cont_id){
 }
 
 function excluirTarefa(id){
+  console.log(id);
   var elemento = document.querySelector('#li_'+id);
   console.log(elemento);
   localStorage.removeItem(elemento.dataset.id);
