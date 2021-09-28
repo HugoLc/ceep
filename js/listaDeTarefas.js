@@ -1,5 +1,23 @@
+import InfoCard from '../js/info-card.js'
+
+const infoCardParagrafo = `
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    Nullam vehicula ultricies convallis. Orci varius natoque 
+    penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    Quisque viverra dictum vestibulum. Fusce vitae erat ut metus 
+    mollis luctus id eget ante. Class aptent taciti sociosqu ad litora 
+    torquent per conubia nostra, per inceptos himenaeos.
+`
+var infoCard = new InfoCard(infoCardParagrafo);
+
+document.addEventListener('click', () => {
+    if(infoCard) {infoCard.excluirInfoCard();}
+    infoCard = null;    
+});
+
 const novaTarefa = document.querySelector('[data-form-bt]');
 const tbTarefa = document.querySelector('[data-form-tb]');
+
 
 // var texto = ;
 var cont = contRandom(0, 1000);
@@ -10,6 +28,37 @@ for (var i = 0; i < localStorage.length; i++) {
   var valor = JSON.parse(localStorage.getItem(chave));
   criarTarefa(chave, valor[0], valor[1], false);
 }
+
+/////////////////////////////////////////////////////isolar em função para chamar toda vez que é criada a task
+const listaBotoesConcluir = document.getElementsByClassName('concluir');
+const listaBotoesExcluir = document.getElementsByClassName('excluir');
+
+console.log(listaBotoesConcluir);
+console.log(listaBotoesExcluir);
+
+for (const botao of listaBotoesConcluir) {
+  let paiDiv = botao.parentElement;
+  let avoLi = paiDiv.parentElement;
+  let idTarefa = avoLi.dataset.id;
+
+  console.log(idTarefa);
+
+  botao.addEventListener('click', () => {
+    concluirTarefa(`p_${idTarefa}`, `i_conc_${idTarefa}`, `li_${idTarefa}`, idTarefa);
+  });
+}
+
+for (const botao of listaBotoesExcluir) {
+  let paiDiv = botao.parentElement;
+  let avoLi = paiDiv.parentElement;
+  let idTarefa = avoLi.dataset.id;
+
+  botao.addEventListener('click', () => {
+    excluirTarefa(idTarefa);
+  });
+}
+
+//////////////////////////////////////////////////////////////////////////
 
  // metodo listener para o evento click chamado uma função anonima que executa um console.log
 // novaTarefa.addEventListener('click', ()=> {console.log('fui clicado')})
@@ -33,8 +82,8 @@ function criarTarefa(id, texto, estado, tarefa_nova) {
                         ${texto}
                       </p>
                       <div class="acoes-tarefa">
-                        <i id="i_conc_${id}" onclick="concluirTarefa('p_${id}', 'i_conc_${id}', 'li_${id}', ${id})" class="fas fa-check" data-concluido = ${estado}></i>
-                        <i onclick="excluirTarefa(${id})" class="fas fa-trash" ></i>
+                        <i id="i_conc_${id}" class="fas fa-check concluir" data-concluido = ${estado}></i>
+                        <i class="fas fa-trash excluir" ></i>
                       </div>
                     </li>` // estudar template string
     var lista = document.querySelector('[data-lista]');
@@ -70,10 +119,12 @@ function getTextoTarefa(textBox){
 }
 
 function concluirTarefa(p_id, i_conc_id, li_id, cont_id){
-  // console.log(id);
+  console.log(cont_id);
   var paragrafo = document.getElementById(p_id);
   var icone = document.getElementById(i_conc_id);
   var li_tarefa = document.getElementById(li_id);
+
+  console.log(paragrafo);
 
   var icone_data = icone.dataset.concluido;
   //se o estado atual for não concluido(0)
@@ -129,6 +180,7 @@ function contRandom(min, max){
 
 function alterarStorage(id, estado){
   var valor = JSON.parse(localStorage.getItem(id));
+  console.log('valor',id)
   valor[1] = estado;
   localStorage.setItem(id, JSON.stringify(valor));
   console.log(valor);
